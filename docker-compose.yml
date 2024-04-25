@@ -22,9 +22,9 @@ services:
     stdin_open: true
     tty: true
     volumes:
-      - etc:/etc/sw360
-      - document_library:/app/sw360/data/document_library
-      - ./config:/app/sw360/config
+      - /mnt/user/appdata/sw360/etc:/etc/sw360
+      - /mnt/user/appdata/sw360/document_library:/app/sw360/data/document_library
+      - /mnt/user/appdata/sw360/config:/app/sw360/config
 
   postgresdb:
     image: "postgres:16"
@@ -34,7 +34,7 @@ services:
       - POSTGRES_PASSWORD=liferay
       - POSTGRES_DB=lportal
     volumes:
-      - postgres:/var/lib/postgresql/data/
+      - /mnt/user/appdata/sw360/postgres:/var/lib/postgresql/data/
     ports:
       - "5438:5432"
     logging:
@@ -61,7 +61,7 @@ services:
     ports:
       - "5984:5984"
     volumes:
-      - couchdb:/opt/couchdb/data
+      - /mnt/user/appdata/sw360/couchdb:/opt/couchdb/data
     healthcheck:
       test: ["CMD-SHELL", "curl --fail -s http://couchdb:5984/_up"]
       interval: 10s
